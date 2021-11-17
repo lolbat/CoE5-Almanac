@@ -1,0 +1,32 @@
+{
+  "name": "alamanc",
+  "version": "1.0.0",
+  "description": "A data browser for the Conquest of Elysium 5 game",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolbat/coe5almanac.git"
+  },
+  "keywords": [
+    "node",
+    "html",
+    "CoE5"
+  ],
+  "author": "Zac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lolbat/coe5almanac/issues"
+  },
+  "homepage": "https://github.com/lolbat/coe5almanac#readme",
+  "devDependencies": {
+    "bootstrap": "^5.1.3"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.7.0",
+    "jsrender": "^1.0.11",
+    "jsviews": "^1.0.11",
+    "slickgrid": "^2.4.43"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "actions" : {
+    "run" : {
+      "enabled" : true,
+      "script" : "http-server .\/build"
+    }
+  },
+  "identifier" : "3A73F1DC-6629-4191-B94A-12DD3C6A4E5F"
+}

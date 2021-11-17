@@ -1,0 +1,1874 @@
+<!doctype html>
+
+<html lang="en">
+  
+  <head>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A browser to view data for the Conquest of Elysium 5 game">
+    <meta name="author" content="Zac">
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="icon" href="img/favicon-32x32.png">
+    <!--[if IE]><link rel="shortcut icon" href="img/favicon.ico"><![endif]-->
+    
+    <title>Conquest of Elysium 5 Almanac</title>
+
+    <!-- css includes for bootpstrap -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    
+    <!-- Slick Grid -->
+    <link rel="stylesheet" href="node_modules/slickgrid/slick.grid.css" type="text/css"/>
+    <link rel="stylesheet" href="node_modules/slickgrid/css/smoothness/jquery-ui.css" type="text/css"/>
+    
+    <!-- css includes for this app -->
+    <link rel="stylesheet" href="css/browser-min.css">
+    
+    <!-- css for datatables-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <!-- bootstrap JS -->
+        <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- JQuery core file -->
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        
+        <!-- JSRender -->
+        <script src="node_modules/jsrender/jsrender.min.js" ></script>
+        
+        <!-- Slick Grid -->
+        <!--<script src="node_modules/slickgrid/slick.core.js"></script>
+        <script src="node_modules/slickgrid/slick.editors.js"></script>
+        <script src="node_modules/slickgrid/slick.formatters.js"></script>
+        <script src="node_modules/slickgrid/slick.grid.js"></script>-->
+          
+        <!-- datatables -->
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        
+        <!-- include the json code -->
+        <script src="src/jsonLoad.js"></script>
+        
+        <!-- load the data manager class -->
+        <script src="src/dataMgr.js"></script>
+        
+        <script src="src/constStorage.js"></script>
+        
+        <!-- load the catalogue class -->
+        <script src="src/catalogue.js"></script>
+        
+        <!-- include the core code -->
+        <script src="src/core.js"></script>
+  
+  </head>
+  
+  <body>
+    
+    <header class="navbar sticky-top flex-md-nowrap p-2 shadow almanacHeader">
+        
+      <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><img src="img/books.png" width="32" height="32"/> Conquest of Elysium 5 Almanac</div>
+    
+      <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+          <img src="img/CoE5.png" width="60" height="60"/>
+        </div>
+      </div>
+      
+    </header>
+    
+    <div class="p-0 m-0">
+      
+      <div class="container-fluid">
+        
+        <div class="row p-0">
+          
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+            
+              <div class="list-group mt-3 sidebarButtons">
+                
+                    <button type="button" data-docname="modding" class="list-group-item list-group-item-action btn-sm align-middle docButton mt-1">
+                      <i class="bi bi-file-earmark-spreadsheet-fill iconColorFill"></i>  Modding Commands
+                    </button>
+            
+                   <button type="button" data-docname="spells" class="list-group-item list-group-item-action btn-sm align-middle docButton mt-1">
+                      <i class="bi bi-file-earmark-spreadsheet-fill iconColorFill"></i>  Spells
+                    </button> 
+                    
+                   <button type="button" data-docname="rituals" class="list-group-item list-group-item-action btn-sm align-middle docButton mt-1">
+                     <i class="bi bi-file-earmark-spreadsheet-fill iconColorFill"></i>  Rituals
+                   </button>
+                   
+                   <button type="button" data-docname="ritualsummons" class="list-group-item list-group-item-action btn-sm align-middle summonsButton mt-1">
+                     <i class="bi bi-file-earmark-spreadsheet-fill iconColorFill"></i>  Ritual Summons
+                   </button>
+                   
+                   <button type="button" id="menuCollpaseButton" data-docname="tables" data-bs-toggle="collapse" data-bs-target="#flush-menuCollapse" class="list-group-item list-group-item-action btn-sm align-middle docButton mt-1">
+                      <i class="bi bi-folder-fill iconColorFill"></i>  Modding Tables
+                    </button>
+                    
+                   <div id="flush-menuCollapse" class="accordion-collapse collapse" data-bs-parent="#menuCollpaseButton">
+                      <div id="modTableList">
+                        
+                      </div>
+                    </div>
+                    
+              </div>
+              
+            </nav>
+            
+            
+            
+            <main class="col-md-9 ms-sm-auto col-lg-10 p-0 m-0">
+                        
+                        <div class="w-100 d-flex flex-wrap">
+                        
+                            <div class="row w-100 mainContent">
+                                
+                                <div class="col-lg-9 p-4" id="tableArea">
+                        
+                                    <div class="introContent">
+                                        
+                                        <h4 id="conquestofelysium5almanac">Conquest of Elysium 5 Almanac</h4>
+                                        
+                                        <p>The Conquest of Elysium 5 Almanac is a web-application that allows you to view
+                                        the currently available data for the <a href="http://www.illwinter.com/coe5/index.html">Conquest of Elysium 5</a> game. This is a fan project and is <strong>not</strong>
+                                        affiliated with <a href="http://www.illwinter.com">Illwinter Game Design</a>.</p>
+                                        
+                                        <p>The Spell and Ritual data was provided by Steam user <a href="https://steamcommunity.com/profiles/76561198027028807">Outis</a>. The
+                                        Spell list was created with the Help of the <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2584723182">Mage Tool mod</a> by Mohreb.</p>
+                                        
+                                        <p>The Spell and Ritual data is <a href="https://docs.google.com/spreadsheets/d/1nboFWYKpFNFtAu4nN_ZnQ0yNW-Mz3pYegDx9fVUr7Q4/edit#gid=0">available on Google Docs</a>.</p>
+                                        
+                                        <p>Modding Command data was compiled by pixelgeek from the Modding Documentation
+                                        (<a href="http://www.illwinter.com/coe5/coe5modding.html">online</a> or <a href="http://www.illwinter.com/coe5/coe5modding.pdf">pdf</a>) provided by Illwinter.</p>
+                                        
+                                        <p>Other data such as the Ritual Summoning data was provided by pixelgeek.</p>
+                                        
+                                        <p>All of the data in the Almanac is available in a <a href="https://github.com/lolbat/Conquest-of-Elysium-5-data">Github repository</a> in multiple formats if you are interested in using it for your own projects.</p>
+                                        
+                                        <p>If you are interested in helping document the game and build the data tables then check out the <a href="https://discord.gg/Fd85tnttM4">CoE5 Discord</a>.</p>
+                                        
+                                        
+                                    </div>
+                        
+                                </div>
+                                
+                                <div class="col-lg-3 bg-lightgrey ml-0 p-0" id="pinArea">
+                                    
+                                </div>
+                                
+                            </div>
+                        
+                        </div>
+                        
+                        </main>
+            
+        </div>
+        
+      </div>
+    
+    </div>
+  
+  </body>
+  
+  <script id="modTableTemplate" type="text/x-jsrender">
+      
+      <table class="table table-striped caption-top" id="renderedDataTable">
+          <caption class="tableCaption">Modding Commands</caption>
+          <thead>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Command</th>
+              <th>Hint</th>
+              <th>Default</th>
+              <th>&nbsp;</th>
+          </thead>
+          
+          {{for modCommands}}
+          
+              <tr>
+                  <td class="text-capitalize">{{:Category}}</td>
+                  <td  class="text-capitalize">{{:Type}}</td>
+                  <td class="modCommandText">{{:Command}}</td>
+                  <td>{{:Hint}}</td>
+                  <td>{{:Default}}</td>
+                  <td><i data-tableType="modding" class="bi bi-chat-dots viewDescriptionIcon"></i></td>
+              </tr>
+              
+          {{/for}}
+          
+      </table>
+  
+  </script>
+  
+  <script id="ritualTemplate" type="text/x-jsrender">
+      
+      <table class="table table-striped caption-top" id="renderedDataTable">
+          <caption class="tableCaption">Rituals</caption>
+          <thead>
+              <th>Class</th>
+              <th>Ritual</th>
+              <th>Level</th>
+              <th>Cost</th>
+              <th>Location</th>
+              <th>&nbsp;</th>
+          </thead>
+          
+          {{for rituals}}
+          
+              <tr>
+                  <td>{{:CLASS}}</td>
+                  <td>{{:RITUAL}}</td>
+                  <td>{{:LEVEL}}</td>
+                  <td>{{:costHTML}}</td>
+                  <td>{{:LOCATION}}</td>
+                  <td><i data-tableType="rituals" class="bi bi-chat-dots viewDescriptionIcon"></i></td>
+              </tr>
+              
+          {{/for}}
+          
+      </table>
+  
+  </script>
+  
+  <script id="spellTemplate" type="text/x-jsrender">
+      
+      <table class="table table-striped caption-top sm" id="renderedDataTable">
+          <caption class="tableCaption">Spells</caption>
+          <thead>
+              <th>School</th>
+              <th>Spell</th>
+              <th>Level</th>
+              <th>Range</th>
+              <th>Primary</th>
+              <th>AOE</th>
+              <th>&nbsp;</th>
+          </thead>
+          
+          {{for spells}}
+          
+              <tr>
+                  <td class="">{{:SCHOOL}}</td>
+                  <td  class="">{{:SPELL}}</td>
+                  <td class="">{{:LEVEL}}</td>
+                  <td>{{:RANGE}}</td>
+                  <td>{{:PRIMARY}}</td>
+                  <td>{{:AOE}}</td>
+                  <td><i data-tableType="spells" class="bi bi-chat-dots viewDescriptionIcon"></i></td>
+              </tr>
+              
+          {{/for}}
+          
+      </table>
+  
+  </script>
+  <!-- Loading Data modal -->
+    
+    <div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      
+      <div class="modal-dialog">
+          
+        <div class="modal-content">
+            
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Loading data</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          
+          <div class="modal-body" id="loadingModalText">
+            Loading 
+          </div>
+    
+        </div>
+        
+      </div>
+      
+    </div>
+  <script id="moddingModalTemplate" src="#" type="text/x-jsrender">
+          
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">{{:Command}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+              
+              <nav aria-label="breadcrumb sm fst-italic fw-light">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">{{:Category}}</li>
+                  <li class="breadcrumb-item">{{:Type}}</li>
+                  <li class="breadcrumb-item">{{:Command}}</li>
+                </ol>
+              </nav>
+              
+              <p class=" fs-6" id="modalBody">
+                  <ul class="list-unstyled">
+                  <li><strong>Hint</strong>: {{:Hint}}</li>
+                  <li<strong>Default</strong>: {{:Default}}</li>
+                  </ul>
+              </p>
+              
+              <p class=" fs-6" id="modalBody">
+                  {{:Description}}
+              </p>
+              
+            </div>
+        
+      </script>
+      
+      <script id="ritualsModalTemplate" type="text/x-jsrender">
+          
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">{{:RITUAL}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+              
+              <nav aria-label="breadcrumb sm fst-italic fw-light">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><strong>Class</strong></li>
+                  <li class="breadcrumb-item">{{:CLASS}}</li>
+                </ol>
+              </nav>
+              
+              <p class=" fs-6" id="modalBody">
+                  <ul class="list-unstyled">
+                      <li><strong>Level</strong>: {{:LEVEL}}</li>
+                      <li><strong>Cost</strong>: {{:COST}}</li>
+                      <li><strong>Location</strong>: {{:LOCATION}}</li>
+                  </ul>
+              </p>
+              
+              <p class=" fs-6" id="modalBody">
+                  {{:DESCRIPTION}}
+              </p>
+              
+            </div>
+        
+      </script>
+      
+      <script id="scriptsModalTemplate" type="text/x-jsrender">
+          
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">{{:SPELL}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+              
+              <p class=" fs-6" id="modalBody">
+                  <strong>School</strong>: {{:SCHOOL}}
+              </p>
+      
+              <p class=" fs-6" id="modalBody">
+                  <ul class="list-unstyled">
+                      <li><strong>Level</strong>: {{:LEVEL}} <span class="fst-italic fw-lighter">{{if MAGIC == "Y"}}(Magic){{/if}} {{if SLOW == "Y"}}(Slow){{/if}} {{if SCATTER == "Y"}}(Scatter){{/if}}</span></li>
+                      <li><strong>Range</strong>: {{:RANGE}}</li>
+                      <li><strong>AOE</strong>: {{:AOE}}</li>
+                      
+                      {{if IGNORE AR == "Y"}}
+                          <li>Ignores Armour</li>
+                      {{/if}}
+                      
+                      {{if NEGATION !== "-"}}
+                          <li><strong>Negated by</strong>: {{:NEGATION}}</li>
+                      {{/if}}
+                      
+                      {{if AFFECTS !== '-'}}
+                          <li><strong>Affects</strong>: {{:AFFECTS}}</li>
+                      {{/if}}
+                      
+                      {{if NO AFFECT !== '-'}}
+                          <li><strong>No Effect</strong>: {{:NO AFFECT}}</li>
+                      {{/if}}
+                      
+                  </ul>
+              </p>
+      
+              <p class=" fs-6" id="modalBody">
+                  <strong>Primary effect</strong>: {{:PRIMARY}}
+              </p>
+              
+              {{if xEFFECT !== '-'}}
+                  <p class=" fs-6" id="modalBody">
+                      <strong>Extra Effect</strong>: 
+                      <ul class="list-unstyled">
+                          <li><strong>Effect</strong>: {{:xEFFECT}}</li>
+                          <li><strong>AOE</strong>: {{:xAOE}}</li>
+                          <li><strong>Negation</strong>: {{:xNEGATION}}</li>
+                      </ul>
+                  </p>
+              {{/if}}
+              
+              {{if SPECIAL !== '-'}}
+                  <p class=" fs-6" id="modalBody">
+                      {{:SPECIAL}}
+                  </p>
+              {{/if}}
+              
+              <p class=" fs-6" id="modalBody">
+                  {{:DESCRIPTION}}
+              </p>
+              
+            </div>
+        
+      </script>
+      
+      
+  <div class="modal fade" tabindex="-1" id="descriptionModal">
+            
+              <div class="modal-dialog modalColor">
+                <div class="modal-content" id="modalContent">
+                    
+                </div>
+              </div>
+              
+            </div>
+  <script id="modTableNavTemplate" type="text/x-jsrender">
+              
+              <div class="d-grid gap-2 p-2">
+                  {{for tables}}
+                    <button type="button" data-docname="{{:#data[1]}}" class="btn btn-outline-secondary btn-sm tableButton">
+                      <i class="bi bi-folder-fill iconColorFill"></i> {{:#data[1]}}
+                    </button>
+                  {{/for}}
+              </div>
+          
+          </script>
+          
+          <script id="modTable" type="text/x-jsrender">
+          
+              <table class="table table-bordered caption-top">
+                  <caption class="tableCaption">{{:title}}</caption>
+                  
+                  <thead>
+                  
+                      <tr>
+                          {{for headings}}
+                            <th scope="col">{{:#data}}</th>
+                           {{/for}}
+                      </tr>
+                  
+                  </thead>
+                
+                  <tbody>
+                  
+                      {{for data}}
+                      <tr>
+                          {{for #data}}
+                              <td>{{:#data}}</td>
+                          {{/for}}
+                      </tr>
+                      {{/for}}
+                  
+                  </tbody>
+                  
+              </table>
+          
+          </script>
+  <div id="ritualSummoningDiv">
+                
+                  <h2 id="introduction">Introduction</h2>
+                
+                  <p>This is a list of the type and number of creatures that are summoned by the various rituals in the game. They are organized by faction. The only rituals listed here are those that either have a single creature summoned with a random number (such as Raise Levy) are those that can summon multiple creature types.</p> 
+                  <p>Some creatures are marked with an (!). These creatures, typically familiars, can be summoned multiple times and get additional abilities each time applied to the original creature. For instance, the Priestess of Ba'al can get a Spider Familiar and each time it get selected in a summoning the original familiar gets additional abilities.</p> 
+                  <p>Some creature options are prefixed by a numeric value. The negative values, which have been mostly replaced, are negative terrain types and indicate that the option becomes available when the ritual is cast on that terrain type. </p> 
+                  <p>If there are any rituals missing please post an issue or comment on the Steam Community forum and I will try to track the data down. </p> 
+                  <p>Do note that the following rituals do not appear to be listed as tables in the CoE5 executable.</p> 
+                  
+                <ul> 
+                   <li>Raise Dead</li> 
+                   <li>Summon Planar Being</li> 
+                   <li>Reanimate Animals</li> 
+                   <li>Minor Animal Summoning (Dryad Queen)</li> 
+                   <li>Major Animal Summoning (Dryad Queen)</li> 
+                  </ul>
+                 
+                <h3 id="druid">Druid</h3> 
+                  <p><strong>Plant Forest Guardians</strong></p> 
+                  
+                <ul> 
+                   <li>2d4 x Venus Trap</li> 
+                   <li>1d2+1 x Woodman</li> 
+                   <li>Tree of Crows</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Mythic Beasts</strong></p> 
+                  
+                <ul> 
+                   <li>Sacred Moose</li> 
+                   <li>Amphiptere</li> 
+                   <li>1d2 x Wyvern</li> 
+                   <li>1d4 x Leogryph</li> 
+                   <li>Monster Boar</li> 
+                   <li>Black Hound</li> 
+                  </ul>
+                 
+                  <p><strong>Wild Hunt</strong></p> 
+                  
+                <ul> 
+                   <li>Lord of the Hunt &amp; 2d6 x Deer &amp; 2d6 x Boar &amp; 4d6 x Wolf</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Legendary Beings</strong></p> 
+                  
+                <ul> 
+                   <li>Ent</li> 
+                   <li>Monster Boar &amp; 3d6 x Great Boar &amp; 4d6 x Boar</li> 
+                   <li>Chimaera</li> 
+                   <li>Cockatrice</li> 
+                   <li>Giant Moose &amp; 2d4 x Moose</li> 
+                  </ul>
+                 
+                  
+                <h3 id="necromancer">Necromancer</h3> 
+                  <p><strong>Minor Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Wight</li> 
+                   <li>Bane</li> 
+                   <li>Dire Wolf</li> 
+                   <li>Raven Familiar</li> 
+                   <li>1d3 x Ghost Warrior</li> 
+                   <li>1d3 x Spectral Archer</li> 
+                   <li>Spectral Horseman</li> 
+                   <li>Mound King</li> 
+                   <li>1d3 x Shade</li> 
+                   <li>1d3 x Shade Beast</li> 
+                   <li>1d6 x Dispossessed Spirit</li> 
+                  </ul>
+                 
+                  <p><strong>Major Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Dracolich</li> 
+                   <li>Wraith</li> 
+                   <li>Ghost</li> 
+                   <li>Banshee</li> 
+                   <li>Death Knight</li> 
+                   <li>Carrion</li> 
+                   <li>Tartarian Spirit</li> 
+                   <li>Ziz</li> 
+                  </ul>
+                 
+                  <p><strong>Raise Legion</strong></p> 
+                  
+                <ul> 
+                   <li>20 x Longdead Velite &amp; 20 x Longdead Hastatus &amp; 20 x Longdead Principe &amp; 20 x Longdead Triarius</li> 
+                   <li>2d6 x Spectral Horseman &amp; 3d6 x Spectral Archer &amp; 4d6 x Ghost Warrior</li> 
+                   <li>Dust King &amp; Dust Priest &amp; 5d6 x Dust Walker</li> 
+                   <li>Bane Lord &amp; 5d6 x Bane</li> 
+                   <li>Shade Mage &amp; Shade Lord &amp; 5d6 x Shade &amp; 3d6 x Shade Beast</li> 
+                   <li>Unfrozen Lord &amp; Unfrozen Mage &amp; 2d6 x Unfrozen Warrior &amp; 3d6 x Unfrozen</li> 
+                  </ul>
+                 
+                  <p><strong>Ravenous Curse</strong></p> 
+                  
+                <ul> 
+                   <li>4d6 x Ghoul</li> 
+                  </ul>
+                 
+                  
+                <h3 id="demonologist">Demonologist</h3> 
+                  <p><strong>Imp Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>1d2 x Ice Imp</li> 
+                   <li>1d6 x Imp</li> 
+                   <li>1d6 x Fiery Imp</li> 
+                   <li>Imp Familiar</li> 
+                   <li>Imp Messenger</li> 
+                   <li>Shadow Imp</li> 
+                   <li>2d3 x Bone Imp</li> 
+                   <li>Harlequin</li> 
+                  </ul>
+                 
+                  <p><strong>Demon Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Frost Fiend</li> 
+                   <li>Spine Devil</li> 
+                   <li>1d2 x Bone Devil</li> 
+                   <li>Serpent Fiend</li> 
+                   <li>Lesser Demon</li> 
+                   <li>Fiend of Darkness</li> 
+                   <li>Inhumer Devil</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Demon Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>1d2+1 x Hellhound</li> 
+                   <li>Devil</li> 
+                   <li>Disease Demon</li> 
+                   <li>Storm Demon</li> 
+                  </ul>
+                 
+                  <p><strong>Infernal Horde</strong></p> 
+                  
+                <ul> 
+                   <li>4d6 x Bloodsworn</li> 
+                   <li>3d3 x Demon Knight</li> 
+                   <li>3d6 x Demonic Locust</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Demon Lieutenant</strong></p> 
+                  
+                <ul> 
+                   <li>Succubus <em>commander</em></li> 
+                   <li>Greater Demon <em>commander</em></li> 
+                   <li>Greater Devil <em>commander</em></li> 
+                   <li>Ice Devil <em>commander</em></li> 
+                   <li>Heliophagus <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Demon Lord</strong></p> 
+                  
+                <ul> 
+                   <li>Demon Lord <em>commander</em></li> 
+                   <li>Arch Devil <em>commander</em></li> 
+                   <li>Duke of Hell <em>commander</em></li> 
+                   <li>Prince of Death <em>commander</em></li> 
+                   <li>Goat Sun <em>commander</em></li> 
+                   <li>Lord of Corruption <em>commander</em></li> 
+                   <li>Monster of Fraud <em>commander</em></li> 
+                  </ul>
+                 
+                  
+                <h3 id="enchanter">Enchanter</h3> 
+                  <p>Just to be complete here are the Enchanter summons as well. There are only two notes. The Golems are restricted to a certain terrain type but it is not defined in the summon list but must be hardcoded in the app. Also, the Mimic is restricted to one per location.</p> 
+                  <p><strong>Animate Sword</strong></p> 
+                  
+                <ul> 
+                   <li>Dancing Sword</li> 
+                  </ul>
+                 
+                  <p><strong>Animate Bow</strong></p> 
+                  
+                <ul> 
+                   <li>Living Bow</li> 
+                  </ul>
+                 
+                  <p><strong>Animate Spear</strong></p> 
+                  
+                <ul> 
+                   <li>2 x Dancing Spear</li> 
+                  </ul>
+                 
+                  <p><strong>Animate Armor</strong></p> 
+                  
+                <ul> 
+                   <li>Animated Armor</li> 
+                  </ul>
+                 
+                  <p><strong>Craft Gargoyle</strong></p> 
+                  
+                <ul> 
+                   <li>Gargoyle</li> 
+                  </ul>
+                 
+                  <p><strong>Create Flesh Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Flesh Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Sculpt Terracotta Soldier</strong></p> 
+                  
+                <ul> 
+                   <li>Terracotta Soldier</li> 
+                  </ul>
+                 
+                  <p><strong>Animate Tools</strong></p> 
+                  
+                <ul> 
+                   <li>Dancing Tools <em>non-iron producing terrains</em></li> 
+                   <li>Animated Tools <em>iron producing terrains</em></li> 
+                  </ul>
+                 
+                  <p><strong>Create Mimic</strong></p> 
+                  
+                <ul> 
+                   <li>Mimic</li> 
+                  </ul>
+                 
+                  <p><strong>Craft Guardian</strong></p> 
+                  
+                <ul> 
+                   <li>Guardian</li> 
+                  </ul>
+                 
+                  <p><strong>Create Necrotod</strong></p> 
+                  
+                <ul> 
+                   <li>Necrotod</li> 
+                  </ul>
+                 
+                  <p><strong>Create Wood Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Wood Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Stone Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Stone Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Ice Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Ice Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Clay Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Clay Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Enliven Statue</strong></p> 
+                  
+                <ul> 
+                   <li>Animated Statue</li> 
+                  </ul>
+                 
+                  <p><strong>Animate Quills and Scrolls</strong></p> 
+                  
+                <ul> 
+                   <li>Flying Quills and Scrolls</li> 
+                  </ul>
+                 
+                  <p><strong>Animate Ballista</strong></p> 
+                  
+                <ul> 
+                   <li>Animated Ballista</li> 
+                  </ul>
+                 
+                  <p><strong>Dogs of Gold and Silver</strong></p> 
+                  
+                <ul> 
+                   <li>Dog of Gold and Dog of Silver</li> 
+                  </ul>
+                 
+                  <p><strong>Create Juggernaut</strong></p> 
+                  
+                <ul> 
+                   <li>Juggernaut <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Create Oak Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Oak Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Iron Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Iron Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Onyx Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Onyx Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Crystal Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Crystal Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Silver Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Crystal Golem</li> 
+                  </ul>
+                 
+                  <p><strong>Create Gold Golem</strong></p> 
+                  
+                <ul> 
+                   <li>Gold Golem <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Brass Bull</strong></p> 
+                  
+                <ul> 
+                   <li>Brass Bull</li> 
+                  </ul>
+                 
+                  
+                <h3 id="witch">Witch</h3> 
+                  <p><strong>Minor Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>3d6 x Frog</li> 
+                   <li>2d4 x Giant Snail</li> 
+                   <li>Crocodile</li> 
+                   <li>Marsh Worm</li> 
+                   <li>(!)Black Cat Familiar</li> 
+                   <li>1d2 x Bog Beast</li> 
+                   <li>Swamp Monster</li> 
+                   <li>Swamp Thing</li> 
+                   <li>1d3 x Hydra Hatchling</li> 
+                   <li>Swamp Ghost</li> 
+                   <li>Giant Toad</li> 
+                  </ul>
+                 
+                  <p><strong>Swamp Guardians</strong></p> 
+                  
+                <ul> 
+                   <li>Crocodile</li> 
+                   <li>(!)Frog Familiar</li> 
+                   <li>1d2+1 x Slime Mold</li> 
+                   <li>2d3 x Blood Fungus</li> 
+                   <li>2d3 x Devil Fungus</li> 
+                   <li>2d3 x Death Fungus</li> 
+                   <li>Blue Giant</li> 
+                   <li>Giant Mushroom</li> 
+                   <li>Giant Morel</li> 
+                   <li>1d3+1 x Ochre Jelly</li> 
+                  </ul>
+                 
+                  <p><strong>Major Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Gelatinous Cube</li> 
+                   <li>Monster Toad</li> 
+                   <li>Giant Crocodile</li> 
+                   <li>Hydra</li> 
+                   <li>Creeping Doom</li> 
+                   <li>Rootmonster</li> 
+                   <li>Will o'the Wisp</li> 
+                  </ul>
+                 
+                  <p><strong>Doppelganger Captain</strong></p> 
+                  
+                <ul> 
+                   <li>Doppelganger Captain <em>commander</em></li> 
+                   <li>1d2+1 x Swamp Drake</li> 
+                   <li>Monster Snail</li> 
+                   <li>1d2+1 x Green Ooze</li> 
+                   <li>(!)Homunculus</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Old One</strong></p> 
+                  
+                <ul> 
+                   <li>Mother of Monsters <em>commander</em></li> 
+                   <li>Wyrm</li> 
+                   <li>Erinye <em>commander</em></li> 
+                   <li>Gorgon <em>commander</em></li> 
+                   <li>Mortal Gorgon <em>commander</em></li> 
+                   <li>Dracolion</li> 
+                   <li>Catoblepas</li> 
+                   <li>Ancient Hydra</li> 
+                   <li>Ancient Presence</li> 
+                   <li>Swamp God</li> 
+                  </ul>
+                 
+                  
+                <h3 id="priest-king">Priest King</h3> 
+                  <p><strong>Ceremony of the Lord of Sky</strong></p> 
+                  
+                <ul> 
+                   <li>Turkey Spirit Double</li> 
+                   <li>1d2 x Beast Bat</li> 
+                  </ul>
+                 
+                  <p><strong>Ceremony of the Lord of Rain</strong></p> 
+                  
+                <ul> 
+                   <li>1d3 x Rain Warrior</li> 
+                   <li>1d5 x Toad Warrior</li> 
+                   <li>Toad Priest <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Ceremony of the Lord of War</strong></p> 
+                  
+                <ul> 
+                   <li>Ozelotl</li> 
+                   <li>1d3 x Jaguar</li> 
+                  </ul>
+                 
+                  <p><strong>Ceremony of the Lord of Death</strong></p> 
+                  
+                <ul> 
+                   <li>Civateteo</li> 
+                   <li>2d4 x Longdead</li> 
+                   <li>1d3 x Shade</li> 
+                  </ul>
+                 
+                  <p><strong>Ceremony of the Lord of Night</strong></p> 
+                  
+                <ul> 
+                   <li>Ozelotl</li> 
+                   <li>1d4 x Beast Bat</li> 
+                   <li>1d3 x Shade</li> 
+                  </ul>
+                 
+                  <p><strong>Ceremony of the Bloody Mother</strong></p> 
+                  
+                <ul> 
+                   <li>Tlahuelpuchi</li> 
+                   <li>1d2 x Jaguar</li> 
+                   <li>1d3+1 x Serpent</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Ceremony of the Lord of Sky</strong></p> 
+                  
+                <ul> 
+                   <li>1d2 x Tzitzimitl</li> 
+                   <li>Coatl <em>commander</em></li> 
+                   <li>Great Macaw</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Ceremony of the Lord of Rain</strong></p> 
+                  
+                <ul> 
+                   <li>King of Rain <em>commander</em> &amp; 2d4 x Rain Warrior &amp; 2d8 x Toad Warrior</li> 
+                   <li>Tlaloque of the East <em>commander</em></li> 
+                   <li>Tlaloque of the North <em>commander</em></li> 
+                   <li>Tlaloque of the West <em>commander</em></li> 
+                   <li>Tlaloque of the South <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Greater Ceremony of the Lord of War</strong></p> 
+                  
+                <ul> 
+                   <li>1d3 x Plumed Serpent</li> 
+                   <li>Balam</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Ceremony of the Lord of Death</strong></p> 
+                  
+                <ul> 
+                   <li>Onaqui <em>commander</em></li> 
+                   <li>Bolon-Ti-Ku <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Greater Ceremony of the Lord of Night</strong></p> 
+                  
+                <ul> 
+                   <li>1d3 x Tzitzimitl</li> 
+                   <li>Onaqui <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Greater Ceremony of the Bloody Mother</strong></p> 
+                  
+                <ul> 
+                   <li>1d3+1 x Plumed Serpent</li> 
+                   <li>Coatl <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon God</strong></p> 
+                  
+                <ul> 
+                   <li>Teteo Inan <em>commander</em></li> 
+                   <li>Teotl of the Night <em>commander</em></li> 
+                   <li>Teotl of the Underworld <em>commander</em></li> 
+                   <li>Teotl of Rain <em>commander</em></li> 
+                   <li>Teotl of War <em>commander</em></li> 
+                   <li>Teotl of the Sky <em>commander</em></li> 
+                  </ul>
+                 
+                  
+                <h3 id="illusionist">Illusionist</h3> 
+                  <p><strong>Capture Spell</strong></p> 
+                  
+                <ul> 
+                   <li>Mirror of Dread</li> 
+                   <li>Mirror of Confusion</li> 
+                   <li>Mirror of Many Colors</li> 
+                  </ul>
+                 
+                  <p><strong>Capture Images</strong></p> 
+                  
+                <ul> 
+                   <li>Large Soldier Mirror</li> 
+                   <li>Large Animal Mirror</li> 
+                   <li>Large Unearthly Mirror</li> 
+                   <li>Large Swarm Mirror</li> 
+                   <li>Large Monster Mirror</li> 
+                  </ul>
+                 
+                  <p><strong>Capture Phantasms</strong></p> 
+                  
+                <ul> 
+                   <li>Silver Soldier Mirror</li> 
+                   <li>Silver Animal Mirror</li> 
+                  </ul>
+                 
+                  <p><strong>Capture Spell</strong></p> 
+                  
+                <ul> 
+                   <li>Large Mirror of Dread</li> 
+                   <li>Large Mirror of Confusion</li> 
+                   <li>Large Mirror of Many Colors</li> 
+                  </ul>
+                 
+                  <p><strong>Capture Greater Spell</strong></p> 
+                  
+                <ul> 
+                   <li>Silver Mirror of Dread</li> 
+                   <li>Silver Mirror of Confusion</li> 
+                   <li>Silver Mirror of Many Colors</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Phase Beast</strong></p> 
+                  
+                <ul> 
+                   <li>Phase Spider</li> 
+                   <li>Displacer Beast</li> 
+                  </ul>
+                 
+                  <p><strong>Capture Phantasms</strong></p> 
+                  
+                <ul> 
+                   <li>Golden Soldier Mirror</li> 
+                   <li>Golden Animal Mirror</li> 
+                   <li>Golden Unearthly Mirror</li> 
+                   <li>Golden Swarm Mirror</li> 
+                   <li>Golden Monster Mirror</li> 
+                  </ul>
+                 
+                  <p><strong>Capture Greater Spell</strong></p> 
+                  
+                <ul> 
+                   <li>Golden Mirror of Dread</li> 
+                   <li>Golden Mirror of Confusion</li> 
+                   <li>Golden Mirror of Many Colors</li> 
+                  </ul>
+                 
+                  
+                <h3 id="high-priestess">High Priestess</h3> 
+                  <p>Some of the Scourge Lord and High Priestess summons are only available when the commander is in specific terrain squares. CoE5 makes a distinction between desert-like terrain and desert terrain. So some of the summons are available only when the ritual is cast in desert.</p> 
+                  <p><strong>Lesser Ceremony to Baal</strong></p> 
+                  
+                <ul> 
+                   <li>(!)Large Spider Familiar</li> 
+                   <li>1d3+1 x Large Spider</li> 
+                   <li>2d5 x Small Spider</li> 
+                   <li>2d5 x Scorpion</li> 
+                   <li>1d3+1 x Giant Scorpion</li> 
+                   <li>1d4+2 x Mazzik <em>possible in Desert-like terrain</em></li> 
+                   <li>Se'ir <em>possible in Desert-like terrain</em></li> 
+                   <li>Anakite <em>possible in Ziggurat</em></li> 
+                   <li>1d2+1 x Gibbor <em>possible in Ziggurat</em></li> 
+                  </ul>
+                 
+                  <p><strong>Lesser Blood Feast</strong></p> 
+                  
+                <ul> 
+                   <li>Anakite</li> 
+                   <li>1d3+1 x Gibbor</li> 
+                  </ul>
+                 
+                  <p><strong>Ceremony to Baal</strong></p> 
+                  
+                <ul> 
+                   <li>Lammashta</li> 
+                   <li>2d4 x Giant Spider</li> 
+                   <li>2d3 x Scorpion Beast</li> 
+                   <li>2d3 x Se'ir <em>possible in desert</em></li> 
+                   <li>1d2 x Shed <em>possible in desert</em></li> 
+                   <li>3d6 x Mazzik <em>possible in desert</em></li> 
+                   <li>1d3 x Lilot <em>possible in desert</em></li> 
+                   <li>1d3+1 x Anakite <em>possible in Ziggurat</em></li> 
+                  </ul>
+                 
+                  <p><strong>Blood Feast</strong></p> 
+                  
+                <ul> 
+                   <li>Anakite Captain <em>commander</em> &amp; 2d3 x Anakite</li> 
+                   <li>Zamzummite <em>commander</em></li> 
+                   <li>2 x Ditanu</li> 
+                  </ul>
+                 
+                  <p><strong>Grand Ceremony to Baal</strong></p> 
+                  
+                <ul> 
+                   <li>Sirrush</li> 
+                   <li>Manticore <em>commander</em></li> 
+                   <li>Scorpion Man <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Grand Blood Feast</strong></p> 
+                  
+                <ul> 
+                   <li>Adon <em>commander</em> &amp; 2d6 x Anakite</li> 
+                   <li>Melqart <em>commander</em> &amp; 2d4 x Rephaite</li> 
+                   <li>Watcher <em>commander</em></li> 
+                   <li>Nephil <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Banquet for the Dead</strong></p> 
+                  
+                <ul> 
+                   <li>Malik <em>commander</em> &amp; 2d3 x Ditanu</li> 
+                  </ul>
+                 
+                  <p><strong>Second Sun</strong></p> 
+                  
+                <ul> 
+                   <li>Desert Sun <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon God</strong></p> 
+                  
+                <ul> 
+                   <li>God <em>commander</em></li> 
+                  </ul>
+                 
+                  
+                <h3 id="troll-king">Troll King</h3> 
+                  <p><strong>Plant Giant Fungus</strong></p> 
+                  
+                <ul> 
+                   <li>1d3 x Snow Fungus <em>snowy location</em></li> 
+                   <li>Giant Mushroom <em>ancient forests and similar</em></li> 
+                   <li>1d3 x Blood Fungus</li> 
+                   <li>1d3 x Devil Fungus</li> 
+                   <li>1d3 x Giant Morel</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Linnorm</strong></p> 
+                  
+                <ul> 
+                   <li>Linnorm <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Clamor and Clang</strong></p> 
+                  
+                <ul> 
+                   <li>Ageless Troll <em>commander</em></li> 
+                  </ul>
+                 
+                  
+                <h3 id="warlock">Warlock</h3> 
+                  <p><strong>Lesser Fire Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Fire Elemental</li> 
+                   <li>1d4+1 x Lesser Fire</li> 
+                  </ul>
+                 
+                  <p><strong>Lesser Water Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Water Elemental</li> 
+                   <li>1d4+1 x Lesser Water</li> 
+                  </ul>
+                 
+                  <p><strong>Lesser Air Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Air Elemental</li> 
+                   <li>1d3 x Cloud Elemental</li> 
+                  </ul>
+                 
+                  <p><strong>Lesser Earth Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Earth Elemental</li> 
+                   <li>1d4+1 x Lesser Earth</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Fire Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>2d4+1 x Salamander</li> 
+                   <li>1d3+2 x Flame Spirit</li> 
+                   <li>4d6 x Ember Warrior</li> 
+                   <li>1d2+1 x Fire Bird</li> 
+                   <li>3d4+1 x Fire Lizard</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Champion of Fire</strong></p> 
+                  
+                <ul> 
+                   <li>Champion of Flames <em>commander</em></li> 
+                   <li>Phoenix <em>commander</em></li> 
+                   <li>Fire Giant <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Magma Warrior</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Magma Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Smoke Warrior</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Smoke Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Water Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>1d3+2 x Undine</li> 
+                   <li>4d6 x Wave Warrior</li> 
+                   <li>2d4+1 x Winter Wolf <em>land locations</em></li> 
+                   <li>1d2+1 x Lake Troll <em>near water areas</em></li> 
+                   <li>1d2 x Lake Troll Warrior <em>near water areas</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Yeti</strong></p> 
+                  
+                <ul> 
+                   <li>1d3+2 x Yeti</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Champion of Water</strong></p> 
+                  
+                <ul> 
+                   <li>Champion of Waves <em>commander</em></li> 
+                   <li>Frost Giant <em>commander</em> <em>land locations</em></li> 
+                   <li>Sea Giant <em>commander</em> <em>underwater locations</em></li> 
+                   <li>Lake Troll King <em>commander</em> <em>near water areas</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Mist Warrior</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Mist Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Mud Warrior</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Mud Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Air Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>1d3+2 x Thunderbird</li> 
+                   <li>1d3+2 x Sylph</li> 
+                   <li>4d6 x Cloud Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Champion of Air</strong></p> 
+                  
+                <ul> 
+                   <li>Champion of Storms <em>commander</em></li> 
+                   <li>Storm Giant <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Smoke Warrior</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Smoke Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Earth Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Purple Worm</li> 
+                   <li>1d3 x Stone Drake</li> 
+                   <li>1d3+2 x Earth Gnome</li> 
+                   <li>4d6 x Stone Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Champion of Earth</strong></p> 
+                  
+                <ul> 
+                   <li>Champion of Mountains <em>commander</em></li> 
+                   <li>Cyclops <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Magma Warrior</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Magma Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Summon King of Fire</strong></p> 
+                  
+                <ul> 
+                   <li>King of Fire <em>commander</em></li> 
+                   <li>King of Flames <em>commander</em></li> 
+                   <li>King of Magma <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Queen of Water</strong></p> 
+                  
+                <ul> 
+                   <li>Queen of the Lake <em>commander</em></li> 
+                   <li>Queen of the Deeps <em>commander</em></li> 
+                   <li>Queen of the Sea <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Queen of Air</strong></p> 
+                  
+                <ul> 
+                   <li>Queen of Storms <em>commander</em></li> 
+                   <li>Queen of Thunder <em>commander</em></li> 
+                   <li>Queen of Clouds <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon King of Earth</strong></p> 
+                  
+                <ul> 
+                   <li>King of Mountains <em>commander</em></li> 
+                   <li>King of Deeper Earth <em>commander</em></li> 
+                   <li>King of Earth <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Call Giants</strong></p> 
+                  
+                <ul> 
+                   <li>2d3+1 x Fire Giant</li> 
+                  </ul>
+                 
+                  <p><strong>Call Giants</strong></p> 
+                  
+                <ul> 
+                   <li>2d3+1 x Frost Giant</li> 
+                  </ul>
+                 
+                  <p><strong>Call Winter Wolves</strong></p> 
+                  
+                <ul> 
+                   <li>2d3+1 x Winter Wolf</li> 
+                  </ul>
+                 
+                  <p><strong>Call Giants</strong></p> 
+                  
+                <ul> 
+                   <li>2d3+1 x Sea Giant</li> 
+                  </ul>
+                 
+                  <p><strong>Call Giants</strong></p> 
+                  
+                <ul> 
+                   <li>2d3+1 x Storm Giant</li> 
+                  </ul>
+                 
+                  <p><strong>Call Giants</strong></p> 
+                  
+                <ul> 
+                   <li>2d3+1 x Cyclops</li> 
+                  </ul>
+                 
+                  
+                <h3 id="burgermeister">Burgermeister</h3> 
+                  <p><strong>Animal Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>2d4 x Rabbit</li> 
+                   <li>1d4 x Wolf</li> 
+                   <li>1d6 x Deer</li> 
+                   <li>Moose</li> 
+                   <li>Bear</li> 
+                   <li>1d2 x Serpent</li> 
+                   <li>1d3 x Snake</li> 
+                   <li>1d4 x Boar</li> 
+                  </ul>
+                 
+                  <p><strong>Farm Animal Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Rabbit</li> 
+                   <li>1d4+1 x Snake</li> 
+                   <li>1d2 x Giant Ant</li> 
+                  </ul>
+                 
+                  <p><strong>Great Animal Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>4d6 x Wolf</li> 
+                   <li>2d6 x Moose</li> 
+                   <li>2d6 x Bear</li> 
+                   <li>2d6 x Serpent</li> 
+                   <li>2d8 x Snake</li> 
+                   <li>Great Boar &amp; 3d4 x Boar</li> 
+                   <li>4d6 x Boar</li> 
+                  </ul>
+                 
+                  <p><strong>Ruby Construct</strong></p> 
+                  
+                <ul> 
+                   <li>Iron Ant</li> 
+                   <li>1d4 x Ruby Clockwork Soldier</li> 
+                   <li>1d4+1 x Ruby Clockwork Horror</li> 
+                  </ul>
+                 
+                  <p><strong>Sapphire Construct</strong></p> 
+                  
+                <ul> 
+                   <li>Iron Spider</li> 
+                   <li>1d4 x Sapphire Clockwork Soldier</li> 
+                   <li>1d4+1 x Sapphire Clockwork Horror</li> 
+                  </ul>
+                 
+                  <p><strong>Diamond Construct</strong></p> 
+                  
+                <ul> 
+                   <li>Iron Fly</li> 
+                   <li>1d4 x Diamond Clockwork Soldier</li> 
+                   <li>1d4+1 x Diamond Clockwork Horror</li> 
+                  </ul>
+                 
+                  <p><strong>Emerald Construct</strong></p> 
+                  
+                <ul> 
+                   <li>Iron Scorpion</li> 
+                   <li>1d4 x Emerald Clockwork Soldier</li> 
+                   <li>1d4+1 x Emerald Clockwork Horror</li> 
+                  </ul>
+                 
+                  
+                <h3 id="markgraf">Markgraf</h3> 
+                  <p><strong>Minor Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Wight</li> 
+                   <li>Bane</li> 
+                   <li>Dire Wolf</li> 
+                   <li>Raven Familiar</li> 
+                   <li>1d3 x Spectral Archer</li> 
+                   <li>1d3 x Ghost Warrior</li> 
+                   <li>Spectral Horseman</li> 
+                   <li>Mound King <em>commander</em></li> 
+                   <li>1d3 x Shade</li> 
+                   <li>1d3 x Shade Beast</li> 
+                   <li>1d6 x Dispossessed Spirit</li> 
+                  </ul>
+                 
+                  <p><strong>Major Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Dracolich</li> 
+                   <li>Wraith <em>commander</em></li> 
+                   <li>Ghost</li> 
+                   <li>Banshee</li> 
+                   <li>Death Knight <em>commander</em></li> 
+                   <li>Carrion <em>commander</em></li> 
+                   <li>Tartarian Spirit <em>commander</em></li> 
+                   <li>Ziz</li> 
+                  </ul>
+                 
+                  <p><strong>Ravenous Curse</strong></p> 
+                  
+                <ul> 
+                   <li>6d6 x Little Ghoul <em>possible in graveyards</em></li> 
+                   <li>3d6 x Ghoul <em>possible in villages and smaller human settlements</em></li> 
+                  </ul>
+                 
+                  
+                <h3 id="senator">Senator</h3> 
+                  <p><strong>Raise Levies</strong></p> 
+                  
+                <ul> 
+                   <li>1d4+1 x Levy</li> 
+                  </ul>
+                 
+                  <p><strong>Raise Limitanei</strong></p> 
+                  
+                <ul> 
+                   <li>1d3+1 x Limitane &amp; 1d2 x Limitane Slinger</li> 
+                  </ul>
+                 
+                  
+                <h3 id="barbarian">Barbarian</h3> 
+                  <p><strong>Summon Ancestor</strong></p> 
+                  
+                <ul> 
+                   <li>Ancestral Chief <em>commander</em></li> 
+                   <li>Ancestral Lancer</li> 
+                   <li>Ancestral Warrior</li> 
+                   <li>Ancestral Archer</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Heroes of Old</strong></p> 
+                  
+                <ul> 
+                   <li>Ancestor Guide <em>commander</em> <em>possible in Ancient Forest</em></li> 
+                   <li>Ancestral Hero <em>commander</em></li> 
+                   <li>Ancestral Chief <em>commander</em> &amp; 1d3+1 x Ancestral Lancer</li> 
+                   <li>1d4+1 x Ancestral Warrior &amp; 1d4+1 x Ancestral Archer</li> 
+                   <li>2d4+2 x Ancestral Warrior</li> 
+                   <li>2d3 x Ancestral Lancer</li> 
+                  </ul>
+                 
+                  <p><strong>Carve Totempole</strong></p> 
+                  
+                <ul> 
+                   <li>Totem of Maladies</li> 
+                   <li>Warrior Totem</li> 
+                   <li>Beast Totem</li> 
+                   <li>Thunder Totem</li> 
+                  </ul>
+                 
+                  <p><strong>Army of Legends</strong></p> 
+                  
+                <ul> 
+                   <li>Ancestral Shaman <em>commander</em> &amp; Ancestral Chief <em>commander</em> &amp; 3d6 x Ancestral Lancer &amp; 3d6 x Ancestral Warrior &amp; 3d6 x Ancestral Archer</li> 
+                   <li>Ancestral Hero <em>commander</em> &amp; Ancestor Guide <em>commander</em> &amp; Ancestral Chief <em>commander</em> &amp; 3d6 x Ancestral Lancer &amp; 4d6 x Ancestral Warrior &amp; 3d6 x Ancestral Archer</li> 
+                  </ul>
+                 
+                  
+                <h3 id="high-cultist">High Cultist</h3> 
+                  <p><strong>Call of the Deep</strong></p> 
+                  
+                <ul> 
+                   <li>Hybrid Cultist <em>commander</em></li> 
+                   <li>1d5 x Deep One</li> 
+                   <li>1d2 x Shambler</li> 
+                  </ul>
+                 
+                  <p><strong>Ceremony in the Deep</strong></p> 
+                  
+                <ul> 
+                   <li>Monster of the Deep</li> 
+                   <li>1d4+1 x Angler Spawn</li> 
+                   <li>1d2 x Angler of the Depths</li> 
+                  </ul>
+                 
+                  <p><strong>Call Warriors of the Deep</strong></p> 
+                  
+                <ul> 
+                   <li>Shambler Prince <em>commander</em></li> 
+                   <li>2d4+2 x Deep One Warrior</li> 
+                   <li>1d3+1 x War Shambler</li> 
+                  </ul>
+                 
+                  <p><strong>Contact Elder Being</strong></p> 
+                  
+                <ul> 
+                   <li>Elder Thing</li> 
+                   <li>1d4 x Strange Thing</li> 
+                   <li>Formless Spawn</li> 
+                   <li>Star Oak</li> 
+                   <li>Yithian</li> 
+                  </ul>
+                 
+                  <p><strong>Greater Ceremony in the Deep</strong></p> 
+                  
+                <ul> 
+                   <li>1d3+1 x Angler of the Depths &amp; 3d6 x Angler Spawn</li> 
+                   <li>1d4+1 x Pillar of the Depths</li> 
+                  </ul>
+                 
+                  <p><strong>Call Army of the Deep</strong></p> 
+                  
+                <ul> 
+                   <li>Shambler Prince <em>commander</em> &amp; 2d5 x War Shambler</li> 
+                   <li>3d6 x Shambler</li> 
+                   <li>1d4 x War Shambler &amp; 3d6 x Deep One Warrior</li> 
+                   <li>1d4 x Shambler &amp; 5d6 x Deep One</li> 
+                  </ul>
+                 
+                  <p><strong>Contact Old Ones</strong></p> 
+                  
+                <ul> 
+                   <li>Starspawn <em>commander</em></li> 
+                   <li>Basalt Princess <em>commander</em></li> 
+                   <li>Basalt Prince <em>commander</em></li> 
+                   <li>Yithian Sage <em>commander</em> &amp; 1d4 x Yithian</li> 
+                   <li>Thing from Beyond</li> 
+                  </ul>
+                 
+                  <p><strong>Deep Rising</strong></p> 
+                  
+                <ul> 
+                   <li>4d6 x Pillar of the Depths</li> 
+                   <li>Basalt Prince <em>commander</em> &amp; 2d6 x War Shambler &amp; 4d6 x Deep One Warrior</li> 
+                   <li>Angler Queen <em>commander</em> &amp; 1d6 x Pillar of the Depths &amp; 2d6 x Angler of the Depths</li> 
+                  </ul>
+                 
+                  <p><strong>Call Outer God</strong></p> 
+                  
+                <ul> 
+                   <li>Void Lord <em>commander</em></li> 
+                   <li>King in Yellow <em>commander</em></li> 
+                   <li>Vastness <em>commander</em></li> 
+                   <li>Eldritch Abomination</li> 
+                  </ul>
+                 
+                  <p><strong>Call Elder Beings</strong></p> 
+                  
+                <ul> 
+                   <li>1d3 x Elder Thing</li> 
+                   <li>2d5 x Strange Thing</li> 
+                   <li>1d3 x Formless Spawn</li> 
+                   <li>1d3 x Star Oak</li> 
+                   <li>1d3 x Yithian</li> 
+                   <li>Yithian Sage <em>commander</em></li> 
+                   <li>Thing from Beyond</li> 
+                  </ul>
+                 
+                  <p><strong>Send Lesser Horror</strong></p> 
+                  
+                <ul> 
+                   <li>1d2 x Horror Mantis</li> 
+                   <li>Float Cat Horror</li> 
+                   <li>1d2 x Brass Claw Horror</li> 
+                   <li>1d2 x Spine Membrane Horror</li> 
+                   <li>1d4 x Soultorn</li> 
+                   <li>1d2 x Mind Slime Horror</li> 
+                   <li>Void Hound</li> 
+                  </ul>
+                 
+                  <p><strong>Send Greater Horror</strong></p> 
+                  
+                <ul> 
+                   <li>2d4 x Void Hound</li> 
+                   <li>Dream Horror</li> 
+                   <li>Moon Horror</li> 
+                   <li>Horror Olm</li> 
+                   <li>Gore Tide Horror</li> 
+                   <li>Soulshatter Horror</li> 
+                  </ul>
+                 
+                  
+                <h3 id="bakemono">Bakemono</h3> 
+                  <p><strong>Summon Lesser Beings</strong></p> 
+                  
+                <ul> 
+                   <li>Bakeneko</li> 
+                   <li>Tengu Weapon Master <em>commander</em></li> 
+                   <li>Mujina <em>commander</em></li> 
+                   <li>2d3 x Kappa</li> 
+                   <li>Karasu Tengu</li> 
+                   <li>1d3 x Konoha Tengu</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Lesser Oni</strong></p> 
+                  
+                <ul> 
+                   <li>2d5 x Ko Oni</li> 
+                   <li>2d3 x Shikome</li> 
+                   <li>1d4 x Ao Oni</li> 
+                   <li>1d4 x Aka Oni</li> 
+                   <li>Chunari <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Summon Greater Beings</strong></p> 
+                  
+                <ul> 
+                   <li>Tatsu <em>commander</em></li> 
+                   <li>Jorogumo <em>commander</em></li> 
+                   <li>Nushi <em>commander</em></li> 
+                   <li>Kitsune <em>commander</em></li> 
+                   <li>Tanuki <em>commander</em></li> 
+                   <li>Shuten Doji <em>commander</em></li> 
+                   <li>Kappa Shaman <em>commander</em> &amp; 2d4 x Kappa</li> 
+                   <li>3d4 x Konoha Tengu</li> 
+                   <li>3d4 x Tengu Warrior</li> 
+                   <li>Omukade</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Oni</strong></p> 
+                  
+                <ul> 
+                   <li>Kuro Oni <em>commander</em></li> 
+                   <li>Hannya <em>commander</em></li> 
+                   <li>3d6 x Ao Oni</li> 
+                   <li>3d6 x Aka Oni</li> 
+                   <li>Gozu &amp; Mezu</li> 
+                  </ul>
+                 
+                  <p><strong>Summon King</strong></p> 
+                  
+                <ul> 
+                   <li>Dai Oni <em>commander</em> &amp; 2d6 x Aka Oni</li> 
+                   <li>Dai Tengu <em>commander</em> &amp; 3d6 x Tengu Warrior &amp; 3d6 x Konoha Tengu</li> 
+                  </ul>
+                 
+                  
+                <h3 id="pale-ones">Pale Ones</h3> 
+                  <p><strong>Awaken Guardians</strong></p> 
+                  
+                <ul> 
+                   <li>1d3 x Sentinel</li> 
+                   <li>Granite Guardian</li> 
+                  </ul>
+                 
+                  <p><strong>Lesser Lava Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>1d2+1 x Lesser Fire</li> 
+                  </ul>
+                 
+                  <p><strong>Lesser Deep Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Cave Grub</li> 
+                   <li>Cave Cow</li> 
+                  </ul>
+                 
+                  <p><strong>Lesser Summoning of the Dead</strong></p> 
+                  
+                <ul> 
+                   <li>Cavern Wight</li> 
+                   <li>Penumbral</li> 
+                  </ul>
+                 
+                  <p><strong>Olm Conclave</strong></p> 
+                  
+                <ul> 
+                   <li>Olm Sage <em>commander</em> &amp; 2d5+2 x Olm</li> 
+                  </ul>
+                 
+                  <p><strong>Summoning of the Dead</strong></p> 
+                  
+                <ul> 
+                   <li>2d6+4 x Penumbral</li> 
+                   <li>1d3+2 x Umbral</li> 
+                   <li>2d5+4 x Cavern Wight</li> 
+                   <li>1d3+1 x Sepulchral</li> 
+                  </ul>
+                 
+                  <p><strong>Lava Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>3d6+4 x Lesser Fire</li> 
+                   <li>1d3+2 x Fire Elemental</li> 
+                   <li>1d3+1 x Magma Child</li> 
+                  </ul>
+                 
+                  <p><strong>Deep Earth Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>2d4 x Troglodyte</li> 
+                   <li>1d6 x Earth Elemental</li> 
+                   <li>4d6+2 x Lesser Earth</li> 
+                   <li>Purple Worm</li> 
+                  </ul>
+                 
+                  <p><strong>Awaken Marble Oracle</strong></p> 
+                  
+                <ul> 
+                   <li>Marble Oracle &amp; 2 x Granite Guardian</li> 
+                  </ul>
+                 
+                  <p><strong>Awaken Onyx Oracle</strong></p> 
+                  
+                <ul> 
+                   <li>Onyx Oracle &amp; 4 x Granite Guardian &amp; 2d3 x Sentinel</li> 
+                  </ul>
+                 
+                  
+                <h3 id="dryad-queen">Dryad Queen</h3> 
+                  <p>Minor and Major Animal Summoning do not appear to be listed as tables in the CoE5 executable.</p> 
+                  <p><strong>Call of Gaia</strong></p> 
+                  
+                <ul> 
+                   <li>Pan <em>commander</em></li> 
+                   <li>Harpy Queen <em>commander</em></li> 
+                   <li>2d4 x White Centaur</li> 
+                   <li>2d3 x Grove Guard <em>possible in Grove of Gaia</em></li> 
+                   <li>2d3 x Grove Guard <em>possible in Primal Forest</em></li> 
+                   <li>2d3 x Dryad Hoplite</li> 
+                  </ul>
+                 
+                  <p><strong>Blood Orgy</strong></p> 
+                  
+                <ul> 
+                   <li>3d6 x Maenad</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Servants of Gaia</strong></p> 
+                  
+                <ul> 
+                   <li>1d4+1 x Kithaironic Lion</li> 
+                   <li>Chimaera</li> 
+                   <li>2d4 x Monster Boar</li> 
+                   <li>Nymph &amp; 3d6 x Satyr</li> 
+                   <li>Nemean Lion</li> 
+                  </ul>
+                 
+                  
+                <h3 id="scourge-lord">Scourge Lord</h3> 
+                  <p><strong>Scourge Summons</strong></p> 
+                  
+                <ul> 
+                   <li>Dark Centipede</li> 
+                   <li>2d3 x Hyena</li> 
+                   <li>1d4 x Black Ant &amp; 1d2 x Black Soldier Ant</li> 
+                   <li>2d4 x Spiderling</li> 
+                   <li>Scourge Ant</li> 
+                   <li>1d3+1 x Black Spider</li> 
+                  </ul>
+                 
+                  <p><strong>Dark Bonds</strong></p> 
+                  
+                <ul> 
+                   <li>Taskmaster &amp; 2d4+4 x Slave Worker</li> 
+                  </ul>
+                 
+                  <p><strong>Dark Scourge Summons</strong></p> 
+                  
+                <ul> 
+                   <li>Basilisk</li> 
+                   <li>Scourge Ant Queen <em>commander</em> &amp; 2d3 x Black Soldier Ant</li> 
+                   <li>1d6+1 x Scourge Ant</li> 
+                   <li>1d4+1 x Scourge Spider</li> 
+                   <li>1d2+1 x Dark Serpent</li> 
+                   <li>Scourge Flame</li> 
+                  </ul>
+                 
+                  <p><strong>Black Scourge Summons</strong></p> 
+                  
+                <ul> 
+                   <li>Scourge Worm</li> 
+                   <li>Myrmecoleon</li> 
+                   <li>Apophis</li> 
+                   <li>Monster Scarab</li> 
+                   <li>1d2 x Scourge Wind</li> 
+                  </ul>
+                 
+                  
+                <h3 id="cloud-lord">Cloud Lord</h3> 
+                  <p><strong>Lesser Sky Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Air Elemental</li> 
+                   <li>1d3 x Cloud Elemental</li> 
+                   <li>4d6 x Swan</li> 
+                   <li>3d6 x Murder of Crows</li> 
+                   <li>Black Hawk <em>commander</em></li> 
+                  </ul>
+                 
+                  <p><strong>Greater Sky Summoning</strong></p> 
+                  
+                <ul> 
+                   <li>Gryphon</li> 
+                   <li>Roc</li> 
+                   <li>1d3+2 x Thunderbird</li> 
+                   <li>1d3+2 x Sylph</li> 
+                   <li>4d6 x Cloud Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Mist Warrior</strong></p> 
+                  
+                <ul> 
+                   <li>3d4 x Mist Warrior</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Yeti</strong></p> 
+                  
+                <ul> 
+                   <li>1d3+2 x Yeti</li> 
+                  </ul>
+                 
+                  <p><strong>Summon Queen of Air</strong></p> 
+                  
+                <ul> 
+                   <li>Queen of Storms</li> 
+                   <li>Queen of Thunder</li> 
+                   <li>Queen of Clouds</li> 
+                  </ul>
+                  
+            </div>
+
+</html>
+

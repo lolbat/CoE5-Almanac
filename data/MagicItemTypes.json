@@ -1,0 +1,12 @@
+{
+	"title": "Magic Item Types",
+	"headings": ["Number", "Magic Item Type"],
+	"data": [
+		[1, "weapon"],
+		[3, "helm"],
+		[4, "armor"],
+		[5, "glove"],
+		[6, "boots"],
+		[7, "misc"]
+	]
+}

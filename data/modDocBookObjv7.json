@@ -1,0 +1,179 @@
+{
+    "docName": "Modding Commands",
+    "version": 5.06,
+    "categories": [{
+            "catname": "Weapons",
+            "hasSubCategories": true,
+            "commandData": []
+        },
+        {
+            "catname": "Magic",
+            "hasSubCategories": true,
+            "commandData": {"parentCategory": "Magic",
+               "subcategories":  [
+               {"subcategory": "Basic", "commands": [
+                  {
+                     "category": "Magic",
+                     "name": "name",
+                     "hint": "item name",
+                     "default": null,
+                     "description": "Set the name of the magic item. Not necessary if you created a new one with newitem."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "descr",
+                     "hint": "item description",
+                     "default": null,
+                     "description": "Not necessary as most magic items don’t have descriptions."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "spr",
+                     "hint": "image file",
+                     "default": null,
+                     "description": "Sets the sprite for the magic item. It should be centered in a 32x32 or 64x64 pixel large image. The drawn item should not be larger than 40x40 pixels however so if put in a 64x64 image it should be surrounded by black."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "rarity",
+                     "hint": "<rarity>",
+                     "default": 0,
+                     "description": "Sets how easy it should be to find this item. 0=common 1=rare 2=rare & unique 3=impossible to find as a random item. Default is 0."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "type",
+                     "hint": "<item type>",
+                     "default": 7,
+                     "description": "Sets the magic item type. Default is 7 = misc item. See table Magic Item Types"
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "armor",
+                     "hint": "<value>",
+                     "default": 0,
+                     "description": "Armor value default 0."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "protection",
+                     "hint": "<value>",
+                     "default": 0,
+                     "description": "Protection bonus default 0."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "hp",
+                     "hint": "<value>",
+                     "default": 0,
+                     "description": "Hit Point bonus default 0."
+                  }
+               ]},
+               {"subcategory": "Copy Clear", "commands":  [
+                  {
+                     "category": "Magic",
+                     "name": "copyspr",
+                     "hint": "item name",
+                     "default": null,
+                     "description": "Uses the sprite from this magic item."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "copystats",
+                     "hint": "item name",
+                     "default": null,
+                     "description": "Copies all stats except the name from this magic item."
+                  }
+               ]},
+               {"subcategory": "Start", "commands": [
+                  {
+                     "category": "Magic",
+                     "name": "newitem",
+                     "hint": "item name",
+                     "default": null,
+                     "description": "This command creates a new magic item."
+                  },
+                  {
+                     "category": "Magic",
+                     "name": "selectitem",
+                     "hint": "item name",
+                     "default": null,
+                     "description": "Selects an existing magic item for modification."
+                  }
+               ]}
+            ]}
+        },
+        {
+            "catname": "Monsters",
+            "hasSubCategories": true,
+            "commandData": []
+        },
+        {
+            "catname": "Mirrors",
+            "hasSubCategories": false,
+            "commandData": []
+        },
+        {
+            "catname": "Income",
+            "hasSubCategories": false,
+            "commandData": []
+        },
+        {
+            "catname": "Resistances",
+            "hasSubCategories": false,
+            "commandData": []
+        },
+        {
+            "catname": "Special",
+            "hasSubCategories": false,
+            "commandData": []
+        },
+        {
+            "catname": "Class",
+            "hasSubCategories": true,
+            "commandData": []
+        },
+        {
+            "catname": "Terrain",
+            "hasSubCategories": true,
+            "commandData": []
+        },
+        {
+            "catname": "Ritual",
+            "hasSubCategories": true,
+            "commandData": []
+        },
+        {
+            "catname": "Sound",
+            "hasSubCategories": false,
+            "commandData": [{
+                   "name": "sample",
+                   "hint": "<sound> 'sample.sw'",
+                   "default": "",
+                   "description": "Sets a sample file (sample.sw) as a certain sound effect number (sound). The sound effect number can be between 0 and 249 high numbers (170+) will create new samples and low number will replace the old samples that already occupies those numbers. The sample file should have the .sw (mono) or .sw2 (stereo) extension and be save as a signed 16-bit 22050 Hz sample."
+                 },
+                 {
+                   "name": "sampleisloopmusic",
+                   "hint": "<sound>",
+                   "default": "",
+                   "description": "Turns this sample into one of the background tunes. That means it will loop into another background tune when it has finished playing."
+                 },
+                 {
+                   "name": "sampleismusic",
+                   "hint": "<sound>",
+                   "default": "",
+                   "description": "Turns this sample into one a class specific tunes. That means it will loop into a background tune when it has finished playing. If you create a sample as a class specific tune this must be used on that sample to keep the music playing. If used on a background tune it will remove that tune from the loop of background music."
+                 }]
+        },
+        {
+            "catname": "Miscellaneous",
+            "hasSubCategories": false,
+            "commandData": []
+        },
+        {
+            "catname": "Events",
+            "hasSubCategories": true,
+            "commandData": []
+        }
+    ]
+}

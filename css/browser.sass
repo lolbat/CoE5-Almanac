@@ -1,0 +1,143 @@
+// color defs
+$boxUnderline : #ceb251
+$lightBG : #fef1da
+$darkBG : #b49b6e 
+$buttonColor : #9c865f 
+$buttonRollover : #796849 
+$headerBG : #414040 
+
+// fonts
+@font-face 
+    font-family: 'blackchanceryregular' 
+    src: url('../fonts/guifont_fancy-webfont.woff2') format('woff2'),
+    src: url('../fonts/guifont_fancy-webfont.woff') format('woff') 
+
+// HTML styles
+body 
+    min-height: 100vh 
+    min-height: -webkit-fill-available 
+
+html 
+    height: 100vh 
+    height: -webkit-fill-available 
+
+main 
+    display: -webkit-flex 
+    display: flex 
+    -webkit-flex-wrap: inherit 
+    flex-wrap: inherit 
+    height: 100vh 
+    height: -webkit-fill-available 
+    overflow-x: auto 
+    overflow-y: auto 
+
+// navbar
+.almanacHeader 
+    background: $headerBG 
+    border-bottom: 5px $boxUnderline solid 
+
+.navbar-brand 
+    font-family: "blackchanceryregular" 
+    color: white 
+    font-size: 1.5rem 
+    font-weight: 300 
+
+// content area
+.mainContent 
+    overflow: scroll 
+    background: $lightBG
+
+.introContent 
+    font-size: 1rem 
+
+// table and table  images
+.ritualCostItem 
+    display: -webkit-inline-flex 
+    display: inline-flex 
+    margin-right: 10px
+
+.ritualCostText 
+    font-size: .75rem 
+    line-height: 1.5rem 
+    padding-right: 3px 
+
+.ritImage 
+    max-height: 20px 
+
+.modCommandText 
+    font-family: monospace 
+    white-space: pre 
+    font-size: .75rem 
+
+.tableCaption 
+    font-family: "blackchanceryregular" 
+    font-size: 2rem 
+    font-weight: bold 
+    color: black 
+    margin-bottom: .125rem 
+
+.viewDescriptionIcon 
+    &:hover 
+        color: red 
+
+.dataTables_scrollHead 
+    font-size: .8rem
+
+div#tableArea 
+    font-size: .7rem 
+
+.dataTables_info 
+    font-size: .8rem 
+
+thead
+    background: $darkBG
+    color: white
+
+// sidebar
+#sidebarMenu 
+    background: $darkBG
+
+#modTableList
+    button
+        background: $buttonRollover
+        color: black
+        &:hover
+            background: $buttonRollover
+            color: white 
+
+.sidebarButtons 
+    button 
+        background: $buttonColor
+        &:hover 
+            background: $buttonRollover
+            color: white 
+        
+.iconColorFill 
+    color: white 
+
+.bi 
+    &::before 
+        vertical-align: .025em 
+    
+.docButton, .summonsButton 
+    margin-left: 0 
+    margin-right: 0 
+    font-size: .75rem 
+
+.tableButton 
+    margin-left: 5px 
+    margin-right: 0 
+    font-size: .75rem 
+    text-align: left 
+    
+// modal styles
+.modal-header
+    background: $headerBG
+    color: white
+    
+.modal-body
+    background: $lightBG
+    
+#modalContent
+    button
+        color: white 

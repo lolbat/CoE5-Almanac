@@ -1,0 +1,22 @@
+{
+	"title": "Area Of Effects",
+	"headings": ["Value", "Effect"],
+	"data": [
+		[0, "Single target"],
+		["xx", "Nbr of nearby squares"],
+		["-xx", "Nbr of random squares"],
+		[997, "Circle around unit"],
+		[998, "All friendly units"],
+		[999, "All enemy units"],
+		["10 xx", "Beam xx squares"],
+		["20 xx", "Narrow cone xx squares"],
+		["30 xx", "Cone xx squares"],
+		["40 xx", "Wide cone xx squares"],
+		["50 xx", "Far beam xx squares"],
+		["70 xx", "Far crack xx squares"],
+		["9 rxx", "Chain lightning xx targets r = max distance"],
+		[9997, "25% of all squares"],
+		[9998, "All units"],
+		[9999, "All squares"]
+	]
+}

@@ -1,0 +1,42 @@
+<script id="modTableNavTemplate" type="text/x-jsrender">
+    
+    <div class="d-grid gap-2 p-2">
+        {{for tables}}
+          <button type="button" data-docname="{{:name}}" class="btn btn-outline-secondary btn-sm tableButton documentButton">
+            <i class="bi bi-folder-fill iconColorFill"></i> {{:name}}
+          </button>
+        {{/for}}
+    </div>
+
+</script>
+
+<script id="modTable" type="text/x-jsrender">
+
+    <table class="table table-bordered caption-top" id="renderedDataTable">
+        <caption class="tableCaption">{{:title}}</caption>
+        
+        <thead>
+        
+            <tr>
+                {{for headings}}
+                  <th scope="col">{{:#data}}</th>
+                 {{/for}}
+            </tr>
+        
+        </thead>
+      
+        <tbody>
+        
+            {{for data}}
+            <tr>
+                {{for #data}}
+                    <td>{{:#data}}</td>
+                {{/for}}
+            </tr>
+            {{/for}}
+        
+        </tbody>
+        
+    </table>
+
+</script>

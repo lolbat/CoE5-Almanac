@@ -1,0 +1,91 @@
+<script id="modTableTemplate" type="text/x-jsrender">
+    
+    <table class="table table-striped caption-top" id="renderedDataTable">
+        <caption class="tableCaption">Modding Commands</caption>
+        <thead>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Command</th>
+            <th>Hint</th>
+            <th>Default</th>
+            <th>&nbsp;</th>
+        </thead>
+        
+        {{for modCommands}}
+        
+            <tr>
+                <td class="text-capitalize">{{:Category}}</td>
+                <td  class="text-capitalize">{{:Type}}</td>
+                <td class="modCommandText">{{:Command}}</td>
+                <td>{{:Hint}}</td>
+                <td>{{:Default}}</td>
+                <td><i data-tableType="modding" class="bi bi-chat-dots viewDescriptionIcon"></i></td>
+            </tr>
+            
+        {{/for}}
+        
+    </table>
+
+</script>
+
+<script id="ritualTemplate" type="text/x-jsrender">
+    
+    <table class="table table-striped caption-top" id="renderedDataTable">
+        <caption class="tableCaption">Rituals</caption>
+        <thead>
+            <th>Class</th>
+            <th>Ritual</th>
+            <th>Level</th>
+            <th>Cost</th>
+            <th>Location</th>
+            <th>&nbsp;</th>
+        </thead>
+        
+        {{for rituals}}
+        
+            <tr>
+                <td>{{:CLASS}}</td>
+                <td>{{:RITUAL}}</td>
+                <td>{{:LEVEL}}</td>
+                <td>{{:costHTML}}</td>
+                <td>{{:LOCATION}}</td>
+                <td><i data-tableType="rituals" class="bi bi-chat-dots viewDescriptionIcon"></i></td>
+            </tr>
+            
+        {{/for}}
+        
+    </table>
+
+</script>
+
+<script id="spellTemplate" type="text/x-jsrender">
+    
+    <table class="table table-striped caption-top sm" id="renderedDataTable">
+        <caption class="tableCaption">Spells</caption>
+        <thead>
+            <th>School</th>
+            <th>Spell</th>
+            <th>Level</th>
+            <th>Range</th>
+            <th>Primary</th>
+            <th>AOE</th>
+            <th>&nbsp;</th>
+        </thead>
+        
+        {{for spells}}
+        
+            <tr>
+                <td class="">{{:SCHOOL}}</td>
+                <td  class="">{{:SPELL}}</td>
+                <td class="">{{:LEVEL}}</td>
+                <td>{{:RANGE}}</td>
+                <td>{{:PRIMARY}}</td>
+                <td>{{:AOE}}</td>
+                <td><i data-tableType="spells" class="bi bi-chat-dots viewDescriptionIcon"></i></td>
+            </tr>
+            
+        {{/for}}
+        
+    </table>
+
+</script>
