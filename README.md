@@ -30,7 +30,7 @@ This application is a Javascript web app that is used to load and render HTML an
  
  ### Updates ###
  
- #### November 17, 2021####
+ #### November 17, 2021 ####
  
  Rewrote the rendering system so that all the data is stored externally. It is now loaded, rendered and stored in memory and 
  then displayed. 
