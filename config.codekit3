@@ -17,6 +17,22 @@
   ],
   "creatorBuild" : "34127",
   "files" : {
+    "\/.gitattributes" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/build\/.gitattributes",
+      "oF" : 0
+    },
+    "\/.gitignore" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/build\/.gitignore",
+      "oF" : 0
+    },
     "\/.nova" : {
       "ft" : 65536,
       "oA" : 1,
@@ -381,6 +397,14 @@
       "oAP" : "\/components\/main_content_component.html",
       "oF" : 2
     },
+    "\/LICENSE" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/build\/LICENSE",
+      "oF" : 0
+    },
     "\/manifest.json" : {
       "ft" : 524288,
       "oA" : 2,
@@ -463,13 +487,13 @@
       "sC" : 0,
       "tS" : 0
     },
-    "\/src\/jsonLoad.js" : {
+    "\/src\/dialogs.js" : {
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
       "mi" : 2,
       "oA" : 0,
-      "oAP" : "\/build\/src\/jsonLoad.js",
+      "oAP" : "\/build\/src\/dialogs.js",
       "oF" : 3,
       "sC" : 0,
       "tS" : 0

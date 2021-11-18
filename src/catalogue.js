@@ -4,19 +4,18 @@
  */
 
 import {catalogueData} from "./catalogueData.js"
+import dialogs from "./dialogs.js"
+
+const dialogMgr = new dialogs();
 
 /**
  * a class to manage the import and storage of external data that the app will eventually try to load and display. 
  * @param {obj} currentDoc - the name of the document we are loading and displaying
  * @param {string} dataDirectory - the relative path to the directory where the files are stored
  * @param {array} docNames -the names of all of the documents as determined from the keys in the catalogueData object
- * @param {DOM} loadingModal - a DOM reference to the Bootstrap modal we display when showing text
- * @param {DOM} errorModal - a DOM reference to the Bootstrap modal we display when showing an error
- * @param {JQuery} loadingText - the JQuery reference to the text element
  * @param {JQuery} displayElement - the JQuery reference to the  element we load the final HTML data into
- * @param {JQuery} errorText - the JQuery reference to the  element that we display the error text into
  */
-class catalogue {
+export default class catalogue {
 
     /**
      * build the class
@@ -26,44 +25,43 @@ class catalogue {
         this.currentDoc = null;
         this.dataDirectory = "data/";
         this.docNames = Object.keys(catalogueData);
-        
-        this.errorModal = new bootstrap.Modal(document.getElementById('loadingError'), {
-                backdrop: true,
-                keyboard:true,
-                focus:true
-            });
-            
-        this.loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'), {
-            backdrop:"static",
-            keyboard:false,
-            focus:true
-        });
-        
-        this.loadingText = $('#loadingModalText');
-        this.errorText = $('#errorModalText');
         this.displayElement = $('#tableArea');
         this.currentTable = null;
 
     }
+    
+    displayDetails(clickedRow) {
+        
+        // use the row selector that we have been sent to get the row index
+        let thisRow = this.currentTable.row(clickedRow);
+        let rowIndex = thisRow.index();
 
+        // get the data from the JSON  storage
+        let JSONData = this.currentDoc.json;
+        let rootKeyName = Object.keys(JSONData)[0]; // all the tables that have a details popup have a single root key
+        let selectedRow = JSONData[rootKeyName][rowIndex];
+  
+        //now render it
+        let displayHTML = $.templates(this.currentDoc.modalTemplate).render(selectedRow);
+
+        dialogMgr.displayDetailsModal(displayHTML);
+        
+    }
+    
     displayError(errorText) {
-          
-      // clear out the old text and add the new text
-      this.errorText .empty;
-      this.errorText .append(errorText);
-      
+
       // hide the loading modal
-      this.errorModal.hide();
+      dialogMgr.closeLoadModal();
       
-      // show the error modal
-      this.errorModal.show();
+      // show the error modal with our error text
+      dialogMgr.displayError(errorText);
       
     }
         
     finishDocumentLoad () {
 
         // clean up
-        this.loadingModal.hide();
+        dialogMgr.closeLoadModal();
         
     }
     
@@ -180,10 +178,9 @@ class catalogue {
         
         // clear out the display element
         this.displayElement.empty;
-        this.displayElement.append(modalText);
         
-        // display the loading modal
-        this.loadingModal.show();
+        //display the modal load message
+        dialogMgr.displayLoadModal(modalText);
 
         if (dataIsJson) {
             this.loadJSON(filePath);
@@ -268,5 +265,3 @@ class catalogue {
     }
     
 }
-
-export default catalogue

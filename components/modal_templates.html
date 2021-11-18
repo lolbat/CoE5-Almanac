@@ -1,131 +1,110 @@
 <script id="moddingModalTemplate" src="#" type="text/x-jsrender">
+        
+    <h5 class="modal-title" id="modalTitle">{{:Command}}</h5>
     
-    <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">{{:Command}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-        
-        <nav aria-label="breadcrumb sm fst-italic fw-light">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">{{:Category}}</li>
-            <li class="breadcrumb-item">{{:Type}}</li>
-            <li class="breadcrumb-item">{{:Command}}</li>
-          </ol>
-        </nav>
-        
-        <p class=" fs-6" id="modalBody">
-            <ul class="list-unstyled">
-            <li><strong>Hint</strong>: {{:Hint}}</li>
-            <li<strong>Default</strong>: {{:Default}}</li>
-            </ul>
-        </p>
-        
-        <p class=" fs-6" id="modalBody">
-            {{:Description}}
-        </p>
-        
-      </div>
-  
+    <nav aria-label="breadcrumb sm fst-italic fw-light">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{:Category}}</li>
+        <li class="breadcrumb-item">{{:Type}}</li>
+        <li class="breadcrumb-item">{{:Command}}</li>
+      </ol>
+    </nav>
+    
+    <p class=" fs-6" id="modalBody">
+        <ul class="list-unstyled">
+        <li><strong>Hint</strong>: {{:Hint}}</li>
+        <li<strong>Default</strong>: {{:Default}}</li>
+        </ul>
+    </p>
+    
+    <p class=" fs-6" id="modalBody">
+        {{:Description}}
+    </p>
+
 </script>
 
 <script id="ritualsModalTemplate" type="text/x-jsrender">
+
+    <h5 class="modal-title" id="modalTitle">{{:RITUAL}}</h5>
     
-    <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">{{:RITUAL}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-        
-        <nav aria-label="breadcrumb sm fst-italic fw-light">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><strong>Class</strong></li>
-            <li class="breadcrumb-item">{{:CLASS}}</li>
-          </ol>
-        </nav>
-        
-        <p class=" fs-6" id="modalBody">
-            <ul class="list-unstyled">
-                <li><strong>Level</strong>: {{:LEVEL}}</li>
-                <li><strong>Cost</strong>: {{:COST}}</li>
-                <li><strong>Location</strong>: {{:LOCATION}}</li>
-            </ul>
-        </p>
-        
-        <p class=" fs-6" id="modalBody">
-            {{:DESCRIPTION}}
-        </p>
-        
-      </div>
-  
+    <nav aria-label="breadcrumb sm fst-italic fw-light">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><strong>Class</strong></li>
+        <li class="breadcrumb-item">{{:CLASS}}</li>
+      </ol>
+    </nav>
+    
+    <p class=" fs-6" id="modalBody">
+        <ul class="list-unstyled">
+            <li><strong>Level</strong>: {{:LEVEL}}</li>
+            <li><strong>Cost</strong>: {{:COST}}</li>
+            <li><strong>Location</strong>: {{:LOCATION}}</li>
+        </ul>
+    </p>
+    
+    <p class=" fs-6" id="modalBody">
+        {{:DESCRIPTION}}
+    </p>
+
 </script>
 
 <script id="scriptsModalTemplate" type="text/x-jsrender">
-    
-    <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">{{:SPELL}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-        
-        <p class=" fs-6" id="modalBody">
-            <strong>School</strong>: {{:SCHOOL}}
-        </p>
 
+    <h5 class="modal-title" id="modalTitle">{{:SPELL}}</h5>
+    
+    <p class=" fs-6" id="modalBody">
+        <strong>School</strong>: {{:SCHOOL}}
+    </p>
+
+    <p class=" fs-6" id="modalBody">
+        <ul class="list-unstyled">
+            <li><strong>Level</strong>: {{:LEVEL}} <span class="fst-italic fw-lighter">{{if MAGIC == "Y"}}(Magic){{/if}} {{if SLOW == "Y"}}(Slow){{/if}} {{if SCATTER == "Y"}}(Scatter){{/if}}</span></li>
+            <li><strong>Range</strong>: {{:RANGE}}</li>
+            <li><strong>AOE</strong>: {{:AOE}}</li>
+            
+            {{if IGNORE AR == "Y"}}
+                <li>Ignores Armour</li>
+            {{/if}}
+            
+            {{if NEGATION !== "-"}}
+                <li><strong>Negated by</strong>: {{:NEGATION}}</li>
+            {{/if}}
+            
+            {{if AFFECTS !== '-'}}
+                <li><strong>Affects</strong>: {{:AFFECTS}}</li>
+            {{/if}}
+            
+            {{if NO AFFECT !== '-'}}
+                <li><strong>No Effect</strong>: {{:NO AFFECT}}</li>
+            {{/if}}
+            
+        </ul>
+    </p>
+
+    <p class=" fs-6" id="modalBody">
+        <strong>Primary effect</strong>: {{:PRIMARY}}
+    </p>
+    
+    {{if xEFFECT !== '-'}}
         <p class=" fs-6" id="modalBody">
+            <strong>Extra Effect</strong>: 
             <ul class="list-unstyled">
-                <li><strong>Level</strong>: {{:LEVEL}} <span class="fst-italic fw-lighter">{{if MAGIC == "Y"}}(Magic){{/if}} {{if SLOW == "Y"}}(Slow){{/if}} {{if SCATTER == "Y"}}(Scatter){{/if}}</span></li>
-                <li><strong>Range</strong>: {{:RANGE}}</li>
-                <li><strong>AOE</strong>: {{:AOE}}</li>
-                
-                {{if IGNORE AR == "Y"}}
-                    <li>Ignores Armour</li>
-                {{/if}}
-                
-                {{if NEGATION !== "-"}}
-                    <li><strong>Negated by</strong>: {{:NEGATION}}</li>
-                {{/if}}
-                
-                {{if AFFECTS !== '-'}}
-                    <li><strong>Affects</strong>: {{:AFFECTS}}</li>
-                {{/if}}
-                
-                {{if NO AFFECT !== '-'}}
-                    <li><strong>No Effect</strong>: {{:NO AFFECT}}</li>
-                {{/if}}
-                
+                <li><strong>Effect</strong>: {{:xEFFECT}}</li>
+                <li><strong>AOE</strong>: {{:xAOE}}</li>
+                <li><strong>Negation</strong>: {{:xNEGATION}}</li>
             </ul>
         </p>
-
+    {{/if}}
+    
+    {{if SPECIAL !== '-'}}
         <p class=" fs-6" id="modalBody">
-            <strong>Primary effect</strong>: {{:PRIMARY}}
+            {{:SPECIAL}}
         </p>
-        
-        {{if xEFFECT !== '-'}}
-            <p class=" fs-6" id="modalBody">
-                <strong>Extra Effect</strong>: 
-                <ul class="list-unstyled">
-                    <li><strong>Effect</strong>: {{:xEFFECT}}</li>
-                    <li><strong>AOE</strong>: {{:xAOE}}</li>
-                    <li><strong>Negation</strong>: {{:xNEGATION}}</li>
-                </ul>
-            </p>
-        {{/if}}
-        
-        {{if SPECIAL !== '-'}}
-            <p class=" fs-6" id="modalBody">
-                {{:SPECIAL}}
-            </p>
-        {{/if}}
-        
-        <p class=" fs-6" id="modalBody">
-            {{:DESCRIPTION}}
-        </p>
-        
-      </div>
-  
+    {{/if}}
+    
+    <p class=" fs-6" id="modalBody">
+        {{:DESCRIPTION}}
+    </p>
+ 
 </script>
 

@@ -257,30 +257,6 @@ let catalogueData = {
       }
     };
 
-const tableData = [
-    ['AreaofEffects.json','Area Of Effects'],
-    ['BattleMaps.json','Battle Maps'],
-    ['ClassNumbers.json','Class Numbers'],
-    ['DamageTypes.json','Damage Types'],
-    ['FlyModes.json','Flying Modes'],
-    ['FlySprite.json','Flying Sprites'],
-    ['GemIncomeBitmask.json','Gem Income Bitmask'],
-    ['MagicItemTypes.json','Magic Item Types'],
-    ['MagicSchools.json','Magic Schools'],
-    ['NameTypes.json','Name Types'],
-    ['NegativeTerrainTypes.json','Negative Terrain Types'],
-    ['Objectives.json','Objectives'],
-    ['PlaneNumbers.json','Plane Numbers'],
-    ['PlayerNumbers.json','Player Numbers'],
-    ['ResourceTypes.json','Resource Types'],
-    ['RitualSchoolType.json','Ritual School Types'],
-    ['SoundEffects.json','Sound Effects'],
-    ['SpecialAfflications.json','Special Afflications bitmask'],
-    ['SpecialBenefits.json','Special Benefits bitmask'],
-    ['TargetRanks.json','Target Ranks'],
-    ['VisualEffects.json','Visual Effects']
-    ];
-
 const  tableObj = { tables: [
         {
           path: 'AreaofEffects.json',
@@ -360,4 +336,4 @@ const  tableObj = { tables: [
       ]
     };
     
-export  {catalogueData, tableData, tableObj};
+export  {catalogueData, tableObj};

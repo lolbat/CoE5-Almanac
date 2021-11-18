@@ -3,17 +3,17 @@
  * @author Zac Belado
  */
 
- import {tableData, catalogueData, tableObj} from "./catalogueData.js"
+ import {tableObj} from "./catalogueData.js"
  import catalogue from "./catalogue.js"
  
- /**
+/**
   * the catalogue that will store all of the data that we load and allow access to it
   * @type {object}
   */
 const objCatalogue = new catalogue();
 
 /**
- * use the array we loaded to build a menu of the modding tables
+ * use the tableObj data we loaded to build a menu of the modding tables
  */
 function buildTableMenu() {
     
@@ -33,10 +33,12 @@ function buildTableMenu() {
 $(document).on('click', '.viewDescriptionIcon', function() {
 
     // show the command description in a popup.
-    let tableType = this.dataset['tabletype'];
     let row = $(this).closest('tr');
-
-    let thisRow = currentTable.row(row); //dataTables uses selectors to find specific rows in a table
+    
+    // tell the catalogue class to display the details for this row
+    objCatalogue.displayDetails(row);
+    
+    /*let thisRow = currentTable.row(row); //dataTables uses selectors to find specific rows in a table
     let rowIndex = thisRow.index();
 
     // ask the dataMgr for all the data at this row index
@@ -53,7 +55,7 @@ $(document).on('click', '.viewDescriptionIcon', function() {
     $('#modalContent').append(modalHTML);
     
     // show the modal
-    myModal.show();
+    myModal.show();*/
     
 });
 
@@ -64,9 +66,6 @@ $(document).on('click', '.viewDescriptionIcon', function() {
  */
 $(document).on('click', '.documentButton', function() {
 
-    // clear out the table area
-    $('#tableArea').empty();
-    
     // get the name from the data-docname attribute
     let docName = this.dataset['docname'];
 
