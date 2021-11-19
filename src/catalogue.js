@@ -30,6 +30,11 @@ export default class catalogue {
 
     }
     
+    /**
+     * find the row that the user clicked on and display all the data for that row
+     *
+     * @param {jQuery} clickedRow - a jQuery selector for the row that the user clicked
+     */
     displayDetails(clickedRow) {
         
         // use the row selector that we have been sent to get the row index
@@ -43,11 +48,17 @@ export default class catalogue {
   
         //now render it
         let displayHTML = $.templates(this.currentDoc.modalTemplate).render(selectedRow);
-
+        
+        // and display it
         dialogMgr.displayDetailsModal(displayHTML);
         
     }
     
+    /**
+     * show the error modal by calling the dialog mnager and sending it the error
+     *
+     * @param {string} errorText - the error description sent from the calling method
+     */
     displayError(errorText) {
 
       // hide the loading modal
@@ -57,7 +68,10 @@ export default class catalogue {
       dialogMgr.displayError(errorText);
       
     }
-        
+    
+    /**
+     * clean up after loading some data
+     */
     finishDocumentLoad () {
 
         // clean up
@@ -65,6 +79,9 @@ export default class catalogue {
         
     }
     
+    /**
+     * display the HTML data for the current document
+     */
     displayHTMLData () {
 
         // this gets called when the data has been loaded and rendered. So we pull the HTML data from the current doc var
@@ -86,22 +103,32 @@ export default class catalogue {
         this.finishDocumentLoad();
 
     }
-            
+    
+    /**
+     * take the JSON data that was just loaded and render it using JSRender
+     */
     renderJSONData() {
 
         // get the template name and table options
         let templateName = this.currentDoc.template;
         let tableDefs = this.currentDoc.tableOptions;
         
+        // use the template to render it into HTML
         this.currentDoc.html  = $.templates(templateName).render(this.currentDoc.json);
         this.currentDoc.rendered = true;
 
         this.displayHTMLData();
         
     }
-
+    
+    /**
+     * store whatever data we were just sent
+     *
+     * @param {JSON} dataResult - the JSON data loaded
+     */
     storeDataResult(dataResult) {
-
+        
+        // check to see if the current doc is a JSON file
         let dataIsJson = this.currentDoc.filepath.indexOf('.json') != -1;
         
         this.currentDoc.loaded = true;
@@ -125,6 +152,11 @@ export default class catalogue {
 
     }
     
+    /**
+     * load an external html file 
+     *
+     * @param {string} filePath - the local path to the file we want. Assumed to be from the root directory
+     */
     loadHTML(filePath) {
         
         // use the jQuery .get() function to load the HTML data.
@@ -146,6 +178,11 @@ export default class catalogue {
                 
     }
     
+    /**
+     * load an external JSON file 
+     *
+     * @param {string} filePath - the local path to the file we want. Assumed to be from the root directory
+     */
     loadJSON(filePath) {
         
         // use the jQuery .getJSON method to load the JSON data
@@ -167,9 +204,12 @@ export default class catalogue {
                 
     }
     
+    /**
+     * Called internally when the main loadDocument method has done some error checking
+     */
     loadExternalData() {
 
-        // build a path and set the jQuery JSON function or the get function to load the data
+        // build a path and set the jQuery JSON  function or the get function to load the data
         let filePath = `${this.dataDirectory}${this.currentDoc.filepath}`;
         let dataIsJson = this.currentDoc.filepath.indexOf('.json') != -1;
         
@@ -189,7 +229,12 @@ export default class catalogue {
         }
 
     }
-
+    
+    /**
+     * called from the main JS code. Used when a user has clicked on a record button
+     *
+     * @param {string} documentName - the name of the document that is stored in the data-docname attribute of the button
+     */
     loadDocument(documentName) {
 
         // load the data for the document

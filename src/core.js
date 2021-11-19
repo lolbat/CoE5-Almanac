@@ -38,25 +38,6 @@ $(document).on('click', '.viewDescriptionIcon', function() {
     // tell the catalogue class to display the details for this row
     objCatalogue.displayDetails(row);
     
-    /*let thisRow = currentTable.row(row); //dataTables uses selectors to find specific rows in a table
-    let rowIndex = thisRow.index();
-
-    // ask the dataMgr for all the data at this row index
-    let fullData = objDataMgr.getDataByIndex(tableType, rowIndex);
-  
-    // lets render the details for this data
-    let renderTemplate = templateNames[tableType]['modalTemplate'];
-    let modalHTML = $.templates(renderTemplate).render(fullData);
-    
-    // build the modal
-    let myModal = new bootstrap.Modal(document.getElementById('descriptionModal'));
-
-    $('#modalContent').empty();
-    $('#modalContent').append(modalHTML);
-    
-    // show the modal
-    myModal.show();*/
-    
 });
 
 // !onClick docButton
